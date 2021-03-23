@@ -9,8 +9,8 @@ venv/
 
 .vscode
 week4
-static
-specialties
-company-create.html
-company-edit.html
-test.json
+# static
+# specialties
+# company-create.html
+# company-edit.html
+# test.json
