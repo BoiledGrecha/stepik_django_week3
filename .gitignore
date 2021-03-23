@@ -8,5 +8,6 @@ db.sqlite3
 venv/
 
 .vscode
-
-test*.py
+week4
+static
+specialties
