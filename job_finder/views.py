@@ -1,8 +1,13 @@
 from django.shortcuts import render
+from random import sample
+from job_finder.models import Vacancy, Specialty, Company
 
 
 def main_view(request):
     context = {}
+    all_specialties = Specialty.objects.all()
+    context["specialties"] = sample(list(all_specialties), len(all_specialties))
+    
     return render(request, "week3/index.html", context)
 
 

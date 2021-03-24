@@ -11,6 +11,6 @@ venv/
 week4
 # static
 # specialties
-# company-create.html
-# company-edit.html
+company-create.html
+company-edit.html
 # test.json

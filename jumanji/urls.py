@@ -20,11 +20,11 @@ from job_finder.views import main_view, all_vacancies_view, vacancies_by_special
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main_view),
-    path('vacancies/', all_vacancies_view),
-    path('vacancies/cat/<str:specialty>', vacancies_by_specialty_view),
-    path('companies/<int:company>', company_view),
-    path('vacancies/<int:vacancy>', vacancy_view),
+    path('', main_view, name="main"),
+    path('vacancies/', all_vacancies_view, name="vacancies"),
+    path('vacancies/cat/<str:specialty>', vacancies_by_specialty_view, name="vacancies_by_categorie"),
+    path('companies/<int:company>', company_view, name="company"),
+    path('vacancies/<int:vacancy>', vacancy_view, name="vacancy"),
 ]
 
 # handler404 = error_handler404

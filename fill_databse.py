@@ -12,6 +12,7 @@ for company in companies:
                     description=company["description"],
                     employee_count=company["employee_count"],
                 )
+    tmp.save()
     companies_dictionary[company["id"]] = tmp
 print(companies_dictionary)
 
@@ -22,6 +23,7 @@ for specialty in specialties:
                     code=specialty["code"],
                     title=specialty["title"],
                     )
+    tmp.save()
     specialties_dictionary[specialty["code"]] = tmp
 
 print(specialties_dictionary)
@@ -38,4 +40,5 @@ for job in jobs:
                     salary_max=job["salary_to"],
                     published_at=job["posted"],
                 )
+    tmp.save()
     print(tmp)
