@@ -11,7 +11,7 @@ def all_vacancies_view(request):
     return render(request, "week3/vacancies.html", context)
 
 
-def vacancies_by_speciality_view(request, speciality):
+def vacancies_by_specialty_view(request, specialty):
     context = {}
     return render(request, "week3/vacancies.html", context)
 

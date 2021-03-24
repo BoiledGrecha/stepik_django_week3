@@ -1,6 +1,6 @@
 from django.db import models
 
-class Speciality(models.Model):
+class Specialty(models.Model):
     code = models.CharField(max_length = 20)
     title = models.CharField(max_length = 100)
     picture = models.URLField(max_length=500, default='https://place-hold.it/100x60')
@@ -16,7 +16,7 @@ class Company(models.Model):
 
 class Vacancy(models.Model):
     title = models.CharField(max_length = 200)
-    specialty = models.ForeignKey(Speciality, on_delete=models.CASCADE, related_name='vacancies')
+    specialty = models.ForeignKey(Specialty, on_delete=models.CASCADE, related_name='vacancies')
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='vacancies')
     skills = models.TextField()
     description = models.TextField()
