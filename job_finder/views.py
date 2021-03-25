@@ -6,8 +6,10 @@ from job_finder.models import Vacancy, Specialty, Company
 def main_view(request):
     context = {}
     all_specialties = Specialty.objects.all()
+
     context["specialties"] = sample(list(all_specialties), len(all_specialties))
-    
+    all_companies = Company.objects.all()
+    context["companies"] = sample(list(all_companies), min(len(all_companies), 8))
     return render(request, "week3/index.html", context)
 
 
