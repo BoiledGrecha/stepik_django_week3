@@ -15,21 +15,25 @@ def main_view(request):
 
 def all_vacancies_view(request):
     context = {}
+    context["specialties"] = Specialty.objects.all()
     return render(request, "week3/vacancies.html", context)
 
 
 def vacancies_by_specialty_view(request, specialty):
     context = {}
+    context["specialties"] = Specialty.objects.filter(id=specialty)
     return render(request, "week3/vacancies.html", context)
 
 
 def company_view(request, company):
     context = {}
+    context["company"] = Company.objects.get(id=company)
     return render(request, "week3/company.html", context)
 
 
-def vacancy_view(request, company):
+def vacancy_view(request, vacancy):
     context = {}
+    context["vacancy"] = Vacancy.objects.get(id=vacancy)
     return render(request, "week3/vacancy.html", context)
 
 # # переписать хендлеры отталкиваясь от ревью

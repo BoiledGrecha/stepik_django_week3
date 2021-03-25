@@ -1,7 +1,7 @@
 from job_finder.models import Vacancy, Company, Specialty
 from data import jobs, companies, specialties
 
-companies_dictionary = dict()
+companies_dictionary = {}
 
 for company in companies:
     tmp = Company(
@@ -14,9 +14,8 @@ for company in companies:
                 )
     tmp.save()
     companies_dictionary[company["id"]] = tmp
-print(companies_dictionary)
 
-specialties_dictionary = dict()
+specialties_dictionary = {}
 
 for specialty in specialties:
     tmp = Specialty(
@@ -26,7 +25,6 @@ for specialty in specialties:
     tmp.save()
     specialties_dictionary[specialty["code"]] = tmp
 
-print(specialties_dictionary)
 
 for job in jobs:
     tmp = Vacancy(
@@ -41,4 +39,3 @@ for job in jobs:
                     published_at=job["posted"],
                 )
     tmp.save()
-    print(tmp)

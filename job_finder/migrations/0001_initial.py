@@ -42,8 +42,16 @@ class Migration(migrations.Migration):
                 ('salary_min', models.FloatField()),
                 ('salary_max', models.FloatField()),
                 ('published_at', models.DateField()),
-                ('company', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='vacancies', to='job_finder.company')),
-                ('specialty', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='vacancies', to='job_finder.speciality')),
+                ('company', models.ForeignKey(
+                                                on_delete=django.db.models.deletion.CASCADE,
+                                                related_name='vacancies',
+                                                to='job_finder.company',
+                                            )),
+                ('specialty', models.ForeignKey(
+                                                on_delete=django.db.models.deletion.CASCADE,
+                                                related_name='vacancies',
+                                                to='job_finder.speciality',
+                                                )),
             ],
         ),
     ]
