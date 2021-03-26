@@ -1,4 +1,6 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
+from django.http import HttpResponse, Http404
 from random import sample
 from job_finder.models import Vacancy, Specialty, Company
 
@@ -21,25 +23,34 @@ def all_vacancies_view(request):
 
 def vacancies_by_specialty_view(request, specialty):
     context = {}
-    context["specialties"] = Specialty.objects.filter(id=specialty)
+    try:
+        context["specialties"] = Specialty.objects.filter(id=specialty)
+    except ObjectDoesNotExist:
+        raise Http404
     return render(request, "week3/vacancies.html", context)
 
 
 def company_view(request, company):
     context = {}
-    context["company"] = Company.objects.get(id=company)
+    try:
+        context["company"] = Company.objects.get(id=company)
+    except ObjectDoesNotExist:
+        raise Http404
     return render(request, "week3/company.html", context)
 
 
 def vacancy_view(request, vacancy):
     context = {}
-    context["vacancy"] = Vacancy.objects.get(id=vacancy)
+    try:
+        context["vacancy"] = Vacancy.objects.get(id=vacancy)
+    except ObjectDoesNotExist:
+        raise Http404
     return render(request, "week3/vacancy.html", context)
 
-# # переписать хендлеры отталкиваясь от ревью
-# def error_handler500(request, *args, **kwargs):
-#     return HttpResponse('Something is going wrong, please contact us +7 800 555 35 35 ', status=500)
+
+def error_handler500(request, *args, **kwargs):
+    return HttpResponse('Something is going wrong, please contact us +7 800 555 35 35 ', status=500)
 
 
-# def error_handler404(request, *args, **kwargs):
-#     return HttpResponse('You are trying to access unknown page', status=404)
+def error_handler404(request, *args, **kwargs):
+    return HttpResponse('You are trying to access unknown page', status=404)

@@ -16,7 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from job_finder.views import main_view, all_vacancies_view, vacancies_by_specialty_view, company_view, vacancy_view
+from job_finder.views import (
+                                main_view,
+                                all_vacancies_view,
+                                vacancies_by_specialty_view,
+                                company_view,
+                                vacancy_view,
+                                error_handler404,
+                                error_handler500,
+                            )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +35,5 @@ urlpatterns = [
     path('vacancies/<int:vacancy>', vacancy_view, name="vacancy"),
 ]
 
-# handler404 = error_handler404
-# handler500 = error_handler500
+handler404 = error_handler404
+handler500 = error_handler500
