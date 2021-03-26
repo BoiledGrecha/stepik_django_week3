@@ -25,6 +25,8 @@ def vacancies_by_specialty_view(request, specialty):
     context = {}
     try:
         context["specialties"] = Specialty.objects.filter(id=specialty)
+        if not context["specialties"]:
+            raise ObjectDoesNotExist
     except ObjectDoesNotExist:
         raise Http404
     return render(request, "week3/vacancies.html", context)
