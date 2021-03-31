@@ -56,8 +56,8 @@ def send_application_view(request):
 
 
 def start_create_company_view(request):
-    conntext = {}
-    return render(request, "week3/company-create.html")
+    context = {}
+    return render(request, "week3/company-create.html", context)
 
 
 def create_company_view(request):
@@ -65,12 +65,12 @@ def create_company_view(request):
 
 
 def my_company_view(request):
-    conntext = {}
+    context = {}
     return render(request, "week3/company-create.html")
 
 
 def my_company_vacancies_view(request):
-    conntext = {}
+    context = {}
     return render(request, "week4/vacancy-list.html")
 
 
@@ -79,12 +79,8 @@ def start_create_vacancy_view(request):
 
 
 def create_vacancy_view(request):
-    conntext = {}
+    context = {}
     return render(request, "week4/vacancy-edit.html")
-
-
-def start_create_company_view(request):
-    pass
 
 
 def create_company_view(request):
