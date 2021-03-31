@@ -49,6 +49,62 @@ def vacancy_view(request, vacancy):
         raise Http404
     return render(request, "week3/vacancy.html", context)
 
+##################################################
+def send_application_view(request):
+    context = {}
+    return render(request, "week4/sent", context)
+
+
+def start_create_company_view(request):
+    conntext = {}
+    return render(request, "week3/company-create.html")
+
+
+def create_company_view(request):
+    pass
+
+
+def my_company_view(request):
+    conntext = {}
+    return render(request, "week3/company-create.html")
+
+
+def my_company_vacancies_view(request):
+    conntext = {}
+    return render(request, "week4/vacancy-list.html")
+
+
+def start_create_vacancy_view(request):
+    pass
+
+
+def create_vacancy_view(request):
+    conntext = {}
+    return render(request, "week4/vacancy-edit.html")
+
+
+def start_create_company_view(request):
+    pass
+
+
+def create_company_view(request):
+    pass
+
+
+def send_application_view(request):
+    pass
+
+
+def login_view(request):
+    pass
+
+
+def register_view(request):
+    pass
+
+
+def logout_view(request):
+    pass
 
 def error_handler500(request, *args, **kwargs):
     return HttpResponse('Something is going wrong, please contact us +7 800 555 35 35 ', status=500)

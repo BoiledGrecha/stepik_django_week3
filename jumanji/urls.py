@@ -22,6 +22,16 @@ from job_finder.views import (
                                 vacancies_by_specialty_view,
                                 company_view,
                                 vacancy_view,
+                                send_application_view,
+                                start_create_company_view,
+                                create_company_view,
+                                my_company_view,
+                                my_company_vacancies_view,
+                                start_create_vacancy_view,
+                                create_vacancy_view,
+                                login_view,
+                                register_view,
+                                logout_view,
                                 error_handler404,
                                 error_handler500,
                             )
@@ -33,6 +43,17 @@ urlpatterns = [
     path('vacancies/cat/<str:specialty>', vacancies_by_specialty_view, name="vacancies_by_categorie"),
     path('companies/<int:company>', company_view, name="company"),
     path('vacancies/<int:vacancy>', vacancy_view, name="vacancy"),
+    
+    path('vacancies/<int:vacancy_id>/send', send_application_view, name="send_application"),
+    path('mycompany/letsstart', start_create_company_view, name="start_create_company"),
+    path('mycompany/create', create_company_view, name="create_company"),
+    path('mycompany', my_company_view, name="my_company"),
+    path('mycompany/vacancies', my_company_vacancies_view, name="my_company_vacancies"),
+    path('mycompany/vacancies/create', start_create_vacancy_view, name="start_create_vacancy"),
+    path('mycompany/vacancies/<int:vacancy_id>', create_vacancy_view, name="create_vacancy"),
+    path('login', login_view, name="login"),
+    path('register', register_view, name="register"),
+    path('logout', logout_view, name="logout"),
 ]
 
 handler404 = error_handler404
