@@ -1,6 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
+from django.contrib.auth.decorators import login_required
 from random import sample
 from job_finder.models import Vacancy, Specialty, Company
 
@@ -64,9 +65,16 @@ def create_company_view(request):
     pass
 
 
+@login_required
 def my_company_view(request):
     context = {}
-    return render(request, "week3/company-create.html")
+    try:
+        print("\n\n\n\n\n1\n\n\n\n\n")
+        company = request.user.company
+        return render(request, "week3/company-edit.html")
+    except:
+        print("\n\n\n\n\n2\n\n\n\n\n")
+        return render(request, "week3/company-create.html")
 
 
 def my_company_vacancies_view(request):
@@ -78,7 +86,7 @@ def start_create_vacancy_view(request):
     pass
 
 
-def create_vacancy_view(request):
+def create_vacancy_view(request, vacancy_id):
     context = {}
     return render(request, "week4/vacancy-edit.html")
 
