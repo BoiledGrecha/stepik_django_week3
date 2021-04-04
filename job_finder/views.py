@@ -1,5 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from random import sample
 from job_finder.models import Vacancy, Specialty, Company
@@ -90,17 +90,6 @@ def create_company_view(request):
 def send_application_view(request):
     pass
 
-
-def login_view(request):
-    pass
-
-
-def register_view(request):
-    pass
-
-
-def logout_view(request):
-    pass
 
 def error_handler500(request, *args, **kwargs):
     return HttpResponse('Something is going wrong, please contact us +7 800 555 35 35 ', status=500)

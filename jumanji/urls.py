@@ -14,47 +14,38 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+import debug_toolbar
+from django.contrib.auth.views import LogoutView
 
-from job_finder.views import (
-                                main_view,
-                                all_vacancies_view,
-                                vacancies_by_specialty_view,
-                                company_view,
-                                vacancy_view,
-                                send_application_view,
-                                start_create_company_view,
-                                create_company_view,
-                                my_company_view,
-                                my_company_vacancies_view,
-                                start_create_vacancy_view,
-                                create_vacancy_view,
-                                login_view,
-                                register_view,
-                                logout_view,
-                                error_handler404,
-                                error_handler500,
-                            )
+from job_finder import views as job_finder_views
+from accounts import views as accounts_views
+
 
 urlpatterns = [
+    path('__debug__/', include(debug_toolbar.urls)),
     path('admin/', admin.site.urls),
-    path('', main_view, name="main"),
-    path('vacancies/', all_vacancies_view, name="vacancies"),
-    path('vacancies/cat/<str:specialty>', vacancies_by_specialty_view, name="vacancies_by_categorie"),
-    path('companies/<int:company>', company_view, name="company"),
-    path('vacancies/<int:vacancy>', vacancy_view, name="vacancy"),
+    path('', job_finder_views.main_view, name="main"),
+    path('vacancies/', job_finder_views.all_vacancies_view, name="vacancies"),
+    path('vacancies/cat/<str:specialty>', job_finder_views.vacancies_by_specialty_view, name="vacancies_by_categorie"),
+    path('companies/<int:company>', job_finder_views.company_view, name="company"),
+    path('vacancies/<int:vacancy>', job_finder_views.vacancy_view, name="vacancy"),
     
-    path('vacancies/<int:vacancy_id>/send', send_application_view, name="send_application"),
-    path('mycompany/letsstart', start_create_company_view, name="start_create_company"),
-    path('mycompany/create', create_company_view, name="create_company"),
-    path('mycompany', my_company_view, name="my_company"),
-    path('mycompany/vacancies', my_company_vacancies_view, name="my_company_vacancies"),
-    path('mycompany/vacancies/create', start_create_vacancy_view, name="start_create_vacancy"),
-    path('mycompany/vacancies/<int:vacancy_id>', create_vacancy_view, name="create_vacancy"),
-    path('login', login_view, name="login"),
-    path('register', register_view, name="register"),
-    path('logout', logout_view, name="logout"),
+    path('vacancies/<int:vacancy_id>/send', job_finder_views.send_application_view, name="send_application"),
+    path('mycompany/letsstart', job_finder_views.start_create_company_view, name="start_create_company"),
+    path('mycompany/create', job_finder_views.create_company_view, name="create_company"),
+    path('mycompany', job_finder_views.my_company_view, name="my_company"),
+    path('mycompany/vacancies', job_finder_views.my_company_vacancies_view, name="my_company_vacancies"),
+    path('mycompany/vacancies/create', job_finder_views.start_create_vacancy_view, name="start_create_vacancy"),
+    path('mycompany/vacancies/<int:vacancy_id>', job_finder_views.create_vacancy_view, name="create_vacancy"),
+    
+    # path('login', accounts_views.login_view, name="login"),
+    # path('register', accounts_views.register_view, name="register"),
+    # path('logout', accounts_views.logout_view, name="logout"),
+    path('login', accounts_views.MyLoginView.as_view(), name="login"),
+    path('logout', LogoutView.as_view(), name="logout"),
+    path('signup', accounts_views.MySignupView.as_view(), name="register"),
 ]
 
-handler404 = error_handler404
-handler500 = error_handler500
+handler404 = job_finder_views.error_handler404
+handler500 = job_finder_views.error_handler500

@@ -11,36 +11,46 @@
   <main class="container">
     <div class="row">
       <div class="col-8 col-lg-4 offset-2 offset-lg-4">
-        <form class="form-signin pt-5" enctype="multipart/form-data">
+        <form method="POST" action="signup" class="form-signin pt-5" enctype="multipart/form-data">{% csrf_token %}
           <div class="text-center mt-5 b-1">
 
             <h1 class="h3 mb-3 font-weight-normal">Джуманджи</h1>
             <p class="h5 font-weight-light">Создайте аккаунт</p>
           </div>
+
+          {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+
           <div class="mt-5 form-label-group">
             <p class="text-muted">Логин</p>
-            <input type="text" id="inputLogin" class="form-control" required autofocus>
+            {{ form.username }}
             <label for="inputLogin"></label>
-          </div>
-
-          <div class=" form-label-group">
-            <p class="text-muted">Имя</p>
-            <input type="text" id="inputName" class="form-control" required >
-            <label for="inputName"></label>
-          </div>
-
-          <div class=" form-label-group">
-            <p class="text-muted">Фамилия</p>
-            <input type="text" id="inputSurname" class="form-control" required >
-            <label for="inputSurname"></label>
           </div>
 
           <div class="form-label-group">
             <p class="text-muted"> Пароль</p>
-            <input type="password" id="inputPassword" class="form-control" required>
+            {{ form.password1 }}
             <label for="inputPassword"></label>
           </div>
-          <div class="checkbox mb-3"></div>
+          
+          <div class="form-label-group">
+            <p class="text-muted"> Повторите пароль</p>
+            {{ form.password2 }}
+            <label for="inputPassword"></label>
+          </div>
+
           <button class="btn btn-primary btn-lg btn-block" type="submit">Зарегистрироваться</button>
         </form>
 
