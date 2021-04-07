@@ -2,8 +2,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from random import sample
 from job_finder.models import Vacancy, Specialty, Company
+from job_finder.forms import CompanyForm
 
 
 def main_view(request):
@@ -69,11 +71,9 @@ def create_company_view(request):
 def my_company_view(request):
     context = {}
     try:
-        print("\n\n\n\n\n1\n\n\n\n\n")
         company = request.user.company
         return render(request, "week3/company-edit.html")
     except:
-        print("\n\n\n\n\n2\n\n\n\n\n")
         return render(request, "week3/company-create.html")
 
 
@@ -90,9 +90,19 @@ def create_vacancy_view(request, vacancy_id):
     context = {}
     return render(request, "week4/vacancy-edit.html")
 
-
+##########\/\/\/\/\/\/\/\/\/\/\/##################
+@login_required
 def create_company_view(request):
-    pass
+    if request.method == "POST":
+        company_form = CompanyForm(request.POST)
+        if company_form.is_valid():
+            company_form.save()
+    try:
+        company = request.user.company
+        return redirect("my_company_view")
+    except:
+        company_form = CompanyForm(initial={'owner':User.objects.get(id=request.user.id)})
+        return render(request, "week3/company-edit.html", {"form":company_form})
 
 
 def send_application_view(request):

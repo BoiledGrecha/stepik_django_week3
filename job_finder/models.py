@@ -15,7 +15,7 @@ class Company(models.Model):
     location = models.CharField(max_length=200)
     logo = models.URLField(max_length=500, default='https://place-hold.it/100x60')
     description = models.TextField()
-    employee_count = models.IntegerField()
+    employee_count = models.CharField(max_length=200)
     owner = models.OneToOneField(User,  on_delete=models.CASCADE, related_name='company', null=True)
 
     def __str__(self):
