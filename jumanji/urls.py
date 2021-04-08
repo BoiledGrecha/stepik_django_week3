@@ -39,9 +39,6 @@ urlpatterns = [
     path('mycompany/vacancies/create', job_finder_views.start_create_vacancy_view, name="start_create_vacancy"),
     path('mycompany/vacancies/<int:vacancy_id>', job_finder_views.create_vacancy_view, name="create_vacancy"),
     
-    # path('login', accounts_views.login_view, name="login"),
-    # path('register', accounts_views.register_view, name="register"),
-    # path('logout', accounts_views.logout_view, name="logout"),
     path('login', accounts_views.MyLoginView.as_view(), name="login"),
     path('logout', LogoutView.as_view(), name="logout"),
     path('signup', accounts_views.MySignupView.as_view(), name="register"),
