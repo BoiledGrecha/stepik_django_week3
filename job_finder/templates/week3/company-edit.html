@@ -4,30 +4,20 @@
   
   <main class="container mt-3 pb-5">
     <div class="row mt-5">
-    {% if  request.user.company %}
-      <div class="col-12 col-lg-4">
-        <aside class="pt-3 pb-4 px-4 mb-5 card">
-          <h1 class="h4 pt-2 pb-2">Моя компания</h1>
-          <div class="nav flex-column nav-pills">
-          {% url 'my_company' as url1 %}
-          {% url 'my_company_vacancies' as url2 %}
-            <a class="nav-link {% if request.path == url1 %}active{% endif %}" href="{{ url1 }}">1. Информация о&nbsp;компании</a>
-            <a class="nav-link {% if request.path == url2 %}active{% endif %}" href="{{ url2 }}">2. Вакансии</a>
-          </div>
-        </aside>
-      </div>
-    {% endif %}
+              
+      {% include "week4/profile_navigation.html" %}
+
       <div class="col-12 col-lg-8">
         <div class="card">
           <div class="card-body px-4 pb-4">
             <!-- Tab -->
             <section class="tab-pane fade show active">
-              {% if  flag %}
+              {% comment %} {% if  flag %}
               <h2 class="h4 pt-2 pb-3">Информация о&nbsp;компании</h2>
               <p class="alert alert-info" role="alert">
                 Информация о компании обновлена
               </p>
-              {% endif %}
+              {% endif %} {% endcomment %}
               <form action="{% url 'create_company' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                {{ form.as_p }}

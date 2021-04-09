@@ -66,7 +66,6 @@ def start_create_company_view(request):
 def create_company_view(request):
     pass
 
-##########\/\/\/\/\/\/\/\/\/\/\/##################
 @login_required
 def my_company_view(request):
     try:
@@ -75,21 +74,21 @@ def my_company_view(request):
     except:
         return render(request, "week3/company-create.html")
 
-
+##########\/\/\/\/\/\/\/\/\/\/\/##################
 def my_company_vacancies_view(request):
     context = {}
     return render(request, "week4/vacancy-list.html")
 
 
-def start_create_vacancy_view(request):
+def create_vacancy_view(request):
     pass
 
 
-def create_vacancy_view(request, vacancy_id):
+def edit_vacancy_view(request, vacancy_id):
     context = {}
     return render(request, "week4/vacancy-edit.html")
 
-##########\/\/\/\/\/\/\/\/\/\/\/##################
+
 @login_required
 def create_company_view(request):
     if request.method == "POST":
