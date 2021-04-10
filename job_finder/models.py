@@ -7,7 +7,7 @@ class Specialty(models.Model):
     picture = models.URLField(max_length=500, default='https://place-hold.it/100x60')
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class Company(models.Model):
@@ -33,7 +33,7 @@ class Vacancy(models.Model):
     published_at = models.DateField()
 
     def __str__(self):
-        return self.name
+        return self.title
 
 class Application(models.Model):
     written_name = models.CharField(max_length=50)
@@ -43,4 +43,4 @@ class Application(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='applications')
 
     def __str__(self):
-        return self.name
+        return self.written_name
