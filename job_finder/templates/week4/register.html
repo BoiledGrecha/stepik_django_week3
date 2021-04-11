@@ -31,12 +31,24 @@
                     <strong>{{ error|escape }}</strong>
                 </div>
             {% endfor %}
-        {% endif %}
+          {% endif %}
 
           <div class="mt-5 form-label-group">
             <p class="text-muted">Логин</p>
             {{ form.username }}
             <label for="inputLogin"></label>
+          </div>
+
+          <div class="mt-5 form-label-group">
+            <p class="text-muted">Имя</p>
+            {{ form.first_name }}
+            <label for="inputFirstName"></label>
+          </div>
+
+          <div class="mt-5 form-label-group">
+            <p class="text-muted">Фамилия</p>
+            {{ form.last_name }}
+            <label for="inputLastName"></label>
           </div>
 
           <div class="form-label-group">

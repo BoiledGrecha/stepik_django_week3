@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from random import sample
 from datetime import date
-from job_finder.models import Vacancy, Specialty, Company
-from job_finder.forms import CompanyForm, VacancyForm
+from job_finder.models import Vacancy, Specialty, Company, Application
+from job_finder.forms import CompanyForm, VacancyForm, ApplicationForm
 
 
 
@@ -45,28 +45,18 @@ def company_view(request, company):
         raise Http404
     return render(request, "week3/company.html", context)
 
-
+##########\/\/\/\/\/\/\/\/\/\/\/##################
 def vacancy_view(request, vacancy):
     context = {}
-    try:
-        context["vacancy"] = Vacancy.objects.get(id=vacancy)
-    except ObjectDoesNotExist:
-        raise Http404
+    context["vacancy"] = Vacancy.objects.get(id=vacancy)
+    application_form = ApplicationForm(initial={'user':request.user, 'vacancy':Vacancy.objects.get(id=vacancy)})
+    context["form"] = application_form
     return render(request, "week3/vacancy.html", context)
 
 ##################################################
-def send_application_view(request):
-    context = {}
-    return render(request, "week4/sent", context)
-
-
 def start_create_company_view(request):
     context = {}
     return render(request, "week3/company-create.html", context)
-
-
-def create_company_view(request):
-    pass
 
 @login_required
 def my_company_view(request):
@@ -102,12 +92,12 @@ def create_vacancy_view(request):
     return render(request, "week4/vacancy-edit.html", {"form":vacancy_form})
 
 
-##########\/\/\/\/\/\/\/\/\/\/\/##################
 @login_required
 def edit_vacancy_view(request, vacancy_id):
     context = {}
     vacancy_form = VacancyForm(instance=Vacancy.objects.get(id=vacancy_id))
-    return render(request, "week4/vacancy-edit.html", {"form":vacancy_form, "vacancy_id":vacancy_id})
+    applications = Application.objects.filter(vacancy__id=vacancy_id)
+    return render(request, "week4/vacancy-edit.html", {"form":vacancy_form, "vacancy_id":vacancy_id, "applications":applications})
 
 
 @login_required
@@ -120,8 +110,7 @@ def create_company_view(request):
         
         if company_form.is_valid():
             company_form.save()
-        # add if not valid
-
+        
     try:
         company = Company.objects.get(owner_id=request.user.id)
         return redirect(my_company_view)
@@ -130,8 +119,12 @@ def create_company_view(request):
         return render(request, "week3/company-edit.html", {"form":company_form})
 
 @login_required
-def send_application_view(request):
-    pass
+def send_application_view(request, vacancy_id):
+    if request.POST:
+        application_form = ApplicationForm(request.POST)
+        if application_form.is_valid():
+            application_form.save()
+    return render(request, "week4/sent.html", {"vacancy_id":vacancy_id})
 
 
 def error_handler500(request, *args, **kwargs):

@@ -10,6 +10,7 @@
       <div class="col-12 col-lg-8">
         <div class="card">
           <div class="card-body px-4 pb-4">
+
             <!-- Tab -->
             <section class="tab-pane fade show active">
               {% comment %} {% if  flag %}
@@ -18,6 +19,7 @@
                 Информация о компании обновлена
               </p>
               {% endif %} {% endcomment %}
+
               <form action="{% url 'create_company' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                {{ form.as_p }}

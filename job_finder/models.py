@@ -40,7 +40,7 @@ class Application(models.Model):
     written_phone = models.CharField(max_length=100)
     written_cover_letter = models.TextField()
     vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name='applications')
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='applications')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
 
     def __str__(self):
         return self.written_name
