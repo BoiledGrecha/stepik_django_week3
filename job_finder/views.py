@@ -9,7 +9,6 @@ from job_finder.models import Vacancy, Specialty, Company, Application
 from job_finder.forms import CompanyForm, VacancyForm, ApplicationForm
 
 
-
 def main_view(request):
     context = {}
     all_specialties = Specialty.objects.all()
