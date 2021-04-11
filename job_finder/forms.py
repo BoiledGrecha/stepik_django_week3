@@ -15,7 +15,7 @@ class CompanyForm(ModelForm):
 class VacancyForm(ModelForm):
     class Meta:
         model = Vacancy
-        fields = ['title', 'specialty', 'company', 'skills', 'description', 'salary_min', 'salary_max', 'published_at']
+        fields = ['title', 'specialty', 'company', 'skills', 'description', 'salary_min', 'salary_max']
         widgets = {
             'id': HiddenInput(),
             'company': HiddenInput(),

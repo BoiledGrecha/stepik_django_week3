@@ -1,12 +1,13 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
+from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from random import sample
-from datetime import date
 from job_finder.models import Vacancy, Specialty, Company, Application
 from job_finder.forms import CompanyForm, VacancyForm, ApplicationForm
+
 
 
 def main_view(request):
@@ -76,12 +77,9 @@ def my_company_vacancies_view(request):
 @login_required
 def create_vacancy_view(request):
     if request.method == "POST":
-        if not request.POST["published_at"]:
-            request.POST._mutable = True
-            request.POST['published_at'] = date.today().strftime("%Y-%m-%d")
         try:
             vacancy_form = VacancyForm(request.POST, instance=Vacancy.objects.get(id=request.POST["vacancy_id"]))
-        except ObjectDoesNotExist:
+        except (ObjectDoesNotExist, MultiValueDictKeyError):
             vacancy_form = VacancyForm(request.POST)
         if vacancy_form.is_valid():
             vacancy_form.save()
@@ -102,20 +100,15 @@ def edit_vacancy_view(request, vacancy_id):
 @login_required
 def create_company_view(request):
     if request.method == "POST":
-        try:
-            user = User.objects.get(id=request.user.id)
-            company_form = CompanyForm(request.POST, instance=Company.objects.get(owner=user))
-        except ObjectDoesNotExist:
-            company_form = CompanyForm(request.POST)
-
+        user = User.objects.get(id=request.user.id)
+        company = Company.objects.filter(owner=user)
+        company_form = (CompanyForm(request.POST) if not company
+                        else CompanyForm(request.POST, instance=company[0]))
         if company_form.is_valid():
             company_form.save()
-    try:
-        Company.objects.get(owner_id=request.user.id)
-        return redirect(my_company_view)
-    except ObjectDoesNotExist:
-        company_form = CompanyForm(initial={'owner': User.objects.get(id=request.user.id)})
-        return render(request, "week3/company-edit.html", {"form": company_form})
+            return redirect(my_company_view)
+    company_form = CompanyForm(initial={'owner': User.objects.get(id=request.user.id)})
+    return render(request, "week3/company-edit.html", {"form": company_form})
 
 
 @login_required

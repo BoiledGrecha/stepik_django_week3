@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date
 
 
 class Specialty(models.Model):
@@ -31,7 +32,7 @@ class Vacancy(models.Model):
     description = models.TextField()
     salary_min = models.IntegerField()
     salary_max = models.IntegerField()
-    published_at = models.DateField()
+    published_at = models.DateField(default=date.today().strftime("%Y-%m-%d"))
 
     def __str__(self):
         return self.title
