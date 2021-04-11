@@ -1,4 +1,4 @@
-from job_finder.models import Vacancy, Company, Specialty, User
+from job_finder.models import Vacancy, Company, Specialty
 from data import jobs, companies, specialties
 
 companies_dictionary = {}

@@ -30,7 +30,6 @@ urlpatterns = [
     path('vacancies/cat/<str:specialty>', job_finder_views.vacancies_by_specialty_view, name="vacancies_by_categorie"),
     path('companies/<int:company>', job_finder_views.company_view, name="company"),
     path('vacancies/<int:vacancy>', job_finder_views.vacancy_view, name="vacancy"),
-    
     path('vacancies/<int:vacancy_id>/send', job_finder_views.send_application_view, name="send_application"),
     path('mycompany/letsstart', job_finder_views.start_create_company_view, name="start_create_company"),
     path('mycompany/create', job_finder_views.create_company_view, name="create_company"),
@@ -38,7 +37,6 @@ urlpatterns = [
     path('mycompany/vacancies', job_finder_views.my_company_vacancies_view, name="my_company_vacancies"),
     path('mycompany/vacancies/create', job_finder_views.create_vacancy_view, name="create_vacancy"),
     path('mycompany/vacancies/<int:vacancy_id>', job_finder_views.edit_vacancy_view, name="edit_vacancy"),
-    
     path('login', accounts_views.MyLoginView.as_view(), name="login"),
     path('logout', LogoutView.as_view(), name="logout"),
     path('signup', accounts_views.MySignupView.as_view(), name="register"),

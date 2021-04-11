@@ -66,7 +66,7 @@ ROOT_URLCONF = 'jumanji.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "job_finder/templates/week4", ],
+        'DIRS': [BASE_DIR / "job_finder/templates/week4"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

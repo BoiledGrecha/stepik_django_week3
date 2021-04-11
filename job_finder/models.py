@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Specialty(models.Model):
     code = models.CharField(max_length=20)
     title = models.CharField(max_length=100)
@@ -34,6 +35,7 @@ class Vacancy(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Application(models.Model):
     written_name = models.CharField(max_length=50)
